@@ -1,12 +1,28 @@
 import streamlit as st
 import pandas as pd
 import pickle
+import os
+import gdown
 
-# Load model & columns
+# DOWNLOAD FIRST
+if not os.path.exists("flight_model.pkl"):
+    gdown.download(
+        "https://drive.google.com/uc?id=1VBht9mm33y47GlKmXk7cWBRVqCSAwPpV",
+        "flight_model.pkl",
+        quiet=False
+    )
+
+if not os.path.exists("model_columns.pkl"):
+    gdown.download(
+        "https://drive.google.com/uc?id=1ItG4eXpOJp0qa6lFDxZ0rcIvk1kzyJAr",
+        "model_columns.pkl",
+        quiet=False
+    )
+
+# THEN LOAD
 model = pickle.load(open('flight_model.pkl', 'rb'))
 model_columns = pickle.load(open('model_columns.pkl', 'rb'))
-
-df = pd.read_csv('C:\\Users\\tejas\\OneDrive\\Desktop\\RTP\\Data_Train.csv')
+df = pd.read_csv('Data_Train.csv')
 
 st.title("✈️ Flight Price Prediction")
 
